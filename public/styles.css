@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    min-height: 100vh;
+
+}
+.login_screen{
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    text-align: center;
+
+}
+
+.logo_wrapper{
+    width: 200px;
+    margin: auto;
+    margin: 1.5rem auto;
+}
+.logo{
+    width: 100%;
+}
+
+.welcome {
+    margin: 1rem auto;
+}
+.sing-in-btn-wrapper{
+   
+    width: 100%;
+    margin: auto;
+    margin-top: 2rem;
+}
+.sing-in-btn{
+    padding: 10px 15px;
+    background-color: rgba(12, 155, 36, 0.822);
+    color: whitesmoke;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.image-credits{
+    margin-top: 2rem;
+    font-size: .8rem;
+}

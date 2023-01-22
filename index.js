@@ -3,6 +3,7 @@ const { generate_access_token, Token } = require('./token/tokens')
 const express = require('express');
 const { get_user, User } = require('./spotify/user');
 const app = express()
+app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs');
 
 console.log(process.env.spotify_auth_base)
@@ -11,8 +12,8 @@ app.get("/", async (req, res) => {
     if (Token.access_token) {
         const user = new User()
         const user_data = await user.crete_views_data()
-        
-        res.render("home", { user: user_data})
+
+        res.render("home", { user: user_data })
 
     }
     else {
