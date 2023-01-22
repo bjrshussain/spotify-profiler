@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <title>Home</title>
+</head>
+
+<body>
+  <section class="container">
+
+    <div class="w-50 m-auto mt-5">
+      <div class="text-center m-3">
+        Welcome to spotify profiler
+      </div>
+      <% if (user) {%>
+        <div class="w-25 m-auto">
+
+          <img class="img-thumbnail rounded-circle w-100 m-auto" src=<%=user?.images[0].url %> alt="">
+
+        </div>
+        <div class="text-center fw-bold m-3">
+          <%= user?user.display_name:"NONE" %>
+        </div>
+
+
+        <%}else{%>
+          <div class="text-center m-3">
+
+            <a class="link-secondary" href="/authorize">Please Login with Spotify to continue</a>
+          </div>
+          <% } %>
+
+    </div>
+
+  </section>
+</body>
+
+</html>
