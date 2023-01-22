@@ -18,26 +18,55 @@
         Welcome to spotify profiler
       </div>
       <% if (user) {%>
-        <div class="w-25 m-auto">
-
-          <img class="img-thumbnail rounded-circle w-100 m-auto" src=<%=user?.images[0].url %> alt="">
-
+        <div class="w-25 m-auto rounded-circle">
+          <img class="img-thumbnail rounded-circle w-100 m-auto" src=<%=user?.user.images[0].url %> alt="user">
         </div>
         <div class="text-center fw-bold m-3">
-          <%= user?user.display_name:"NONE" %>
+          <%= user?user.user.display_name:"" %>
+        </div>
+        <div class="w-100 d-flex justify-content-evenly">
+          <div class="mx-1">Followers: <%= user?user.user.followers.total:"" %></div>
+          <div>Artists Following: <%= user?.followings.artists.total %></div>
+          <div>Playlists: <%= user?.playlists.total%></div>
         </div>
 
+      <div class="my-5">
+        <p class="fw-bold">Playlists</p>
+        <% user.playlists.items.forEach((song)=>{%>
+        <div class="">
+          <%= song.name %>
+        </div>
+        <%})%>
+      </div>
+
+
+          <div class="my-5">
+            <div>
+              <p class="fw-bold fs-6">Top Songs</p>
+            </div>
+            <% user.top_tracks.items.forEach((song)=>{%>
+            <div class="">
+              <%= song.name %>
+            </div>
+            <%})%>
+          </div>
+          <div>
+            <div>
+              <p class="fw-bold">Top Artists</p>
+            </div>
+              <% user.top_artists.items.forEach((song)=>{%>
+              <div class="">
+                <%= song.name %>
+              </div>
+              <%})%>
+          </div>
 
         <%}else{%>
           <div class="text-center m-3">
-
             <a class="link-secondary" href="/authorize">Please Login with Spotify to continue</a>
           </div>
           <% } %>
-
     </div>
-
   </section>
 </body>
-
 </html>

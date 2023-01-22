@@ -10,10 +10,9 @@ app.get("/", async (req, res) => {
 
     if (Token.access_token) {
         const user = new User()
-        const user_data = await user.get_user()
-        const top = await user.get_top_tracks()
-        console.log(top)
-        res.render("home", { user: user_data })
+        const user_data = await user.crete_views_data()
+        
+        res.render("home", { user: user_data})
 
     }
     else {
