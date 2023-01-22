@@ -6,6 +6,7 @@
 
 .container{
     min-height: 100vh;
+    padding: 3rem 0;
 
 }
 .login_screen{
@@ -32,4 +33,98 @@
     color: whitesmoke;
     text-decoration: none;
     border-radius: 5px;
+}
+
+/* User Profile section */
+.profile-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.img_wrapper{
+    width: 150px;
+    margin: auto;
+}
+.image{
+    width: 100%;
+}
+.name{
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+/* User Stats section */
+.stats-section{
+    width: 100%;
+    margin: 1rem auto;
+    
+}
+.user-stats{
+    display: flex;
+    max-width: 350px;
+    text-align: center;
+    justify-content: space-evenly;
+    margin: auto;
+    font-size: .8rem;
+    opacity: .7;
+}
+.headers{
+    width: 100%;
+    display:block;
+    margin-bottom: .5rem;
+}
+@media screen and (max-width: 995px) {
+ .user-stats{
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+}
+
+/* USER CONTENT */
+.user-content{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 500px;
+    margin: auto;
+    margin: auto;
+    font-size: .8rem;
+}
+.headers{
+    font-weight: 600;
+
+}
+
+.user-playlists, .user-artists, .user-songs{
+    padding: 0 2rem;
+    max-width: 100%;
+}
+
+.names{
+    opacity: .7;
+}
+
+@media screen and (min-width: 995px){
+    .user-content{
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+    font-size: .8rem;
+    margin-top: 2rem;
+}
+
+.headers{
+    font-weight: 600;
+
+}
+    
 }

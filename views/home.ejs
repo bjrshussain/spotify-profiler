@@ -14,52 +14,59 @@
 <body>
   <div class="container">
     <% if (user) {%>
-      <div class="w-25 m-auto">
-        <div class="w-25 m-auto">
-          <img class="img-thumbnail rounded-circle w-100 m-auto" src=<%=user?.user.images[0].url %> alt="user">
-        </div>
-      </div>
-      <div class="text-center fw-bold m-3">
-        <%= user?user.user.display_name:"" %>
-      </div>
-      <div class="row text-center w-sm-50">
-        <div class="col-md">Followers: <%= user?user.user.followers.total:"" %>
-        </div>
-        <div class="col-md">Artists Following: <%= user?.followings.artists.total %>
-        </div>
-        <div class="col-md">Playlists: <%= user?.playlists.total%>
-        </div>
-      </div>
-
-      <div class="my-5">
-        <p class="fw-bold">Playlists</p>
-        <% user.playlists.items.forEach((song)=>{%>
-          <div class="">
-            <%= song.name %>
+      <section class="profile-section">
+          <div class="img_wrapper">
+            <img class="image img-thumbnail rounded-circle" src=<%=user?.user.images[0].url %> alt="user">
           </div>
-          <%})%>
-      </div>
-
-
-      <div class="my-5">
-        <div>
-          <p class="fw-bold fs-6">Top Songs</p>
-        </div>
-        <% user.top_tracks.items.forEach((song)=>{%>
-          <div class="">
-            <%= song.name %>
+          <div class="name">
+            <%= user?user.user.display_name:"" %>
           </div>
-          <%})%>
-      </div>
-      <div>
-        <div>
-          <p class="fw-bold">Top Artists</p>
-        </div>
-        <% user.top_artists.items.forEach((song)=>{%>
-          <div class="">
-            <%= song.name %>
+      </section>
+      <section class="stats-section">
+        <div class="user-stats">
+          <div>Followers: <%= user?user.user.followers.total:"" %>
           </div>
-          <%})%>
+          <div>Following: <%= user?.followings.artists.total %>
+          </div>
+          <div>Playlists: <%= user?.playlists.total%>
+          </div>
+        </div>
+      </section>
+
+      <div class="user-content">
+        <section class="user-playlists">
+          <div>
+            <p class="headers">Playlists</p>
+            <% user.playlists.items.forEach((playlist, i)=>{%>
+            <div  class="names">
+              <%= i+1 %>. <%= playlist.name %>
+            </div>
+            <%})%>
+          </div>
+        </section>
+        
+        
+        <section class="user-songs">
+          <div>
+              <p class="headers">Top Songs</p>
+         
+            <% user.top_tracks.items.forEach((track, i)=>{%>
+            <div class="names">
+              <%= i+1 %>. <%= track.name %>
+            </div>
+            <%})%>
+          </div>
+        </section>
+        <section class="user-artists">
+          <div>
+              <p class="headers">Top Artists</p>
+            <% user.top_artists.items.forEach((artist, i)=>{%>
+              <div class="names">
+                <%= i+1 %>. <%= artist.name %>
+              </div>
+            <%})%>
+          </div>
+        </section>
       </div>
 
       <%}else{%>
