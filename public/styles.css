@@ -5,12 +5,14 @@
 }
 
 .container{
-    min-height: 100vh;
-    padding: 3rem 0;
+    min-height: calc(100vh - 25px);
+    margin: auto;
+    margin-bottom: 1rem;
 
 }
 .login_screen{
-    min-height: 100vh;
+    max-height: calc(100vh - 6rem);
+    height: 100vh;
     display: grid;
     place-content: center;
     text-align: center;
@@ -154,4 +156,23 @@
     background-color: rgba(12, 155, 36, 0.632);
 
     
+}
+
+.app-logo-wrapper{
+    width: 150px;
+    margin: auto;
+}
+
+.app-logo{
+    width: 100%;
+    border-radius: 50%;
+}
+.github{
+    width: 100%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    opacity: .9;
+    font-size: .8rem;
 }
