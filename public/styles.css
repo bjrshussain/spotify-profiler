@@ -34,6 +34,10 @@
     text-decoration: none;
     border-radius: 5px;
 }
+.sing-in-btn:hover{
+    background-color: rgba(12, 155, 36, 0.632);
+
+}
 
 /* User Profile section */
 .profile-section{
@@ -126,5 +130,28 @@
     font-weight: 600;
 
 }
+    
+}
+
+.logout{
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    
+    
+}
+.logout > a{
+    text-decoration: none;
+    color: rgba(255, 0, 0, 0.726);
+    padding: 6px 15px;
+    background-color: rgba(12, 155, 36, 0.822);
+    color: whitesmoke;
+    text-decoration: none;
+    border-radius: 5px;
+    
+}
+.logout > a:hover{
+    background-color: rgba(12, 155, 36, 0.632);
+
     
 }

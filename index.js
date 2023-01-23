@@ -58,6 +58,12 @@ app.get('/authcallback', async (req, res) => {
     res.redirect("/")
 })
 
+app.get('/logout', (req,res)=>{
+    Token.access_token = null
+    Token.refresh_token = null
+    res.redirect("/")
+})
+
 app.listen(process.env.PORT || 8000, () => {
     console.log(`Server is listenign now...`)
 })
