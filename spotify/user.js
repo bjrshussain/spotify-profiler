@@ -1,29 +1,28 @@
 const { json } = require("body-parser")
-const { Token } = require("../token/tokens")
+const Session = require("../models/session_model")
+const { Token } = require("./tokens")
 
 
 module.exports = {
 
     User: class User {
 
-        constructor () {
+         constructor (tkn) {
             this.url = `${process.env.spotify_api_base}`
-            this.user_id = ""
+            this.token = tkn
+                 
         }
 
         // crete users data to pass into views
-
-        async crete_views_data(){
-            var data = new Object()
+         async crete_views_data(){
+        
+           var data= new Object()
             data = { ...data, user: await this.get_user()  }
             data = { ...data, playlists: await this.get_user_playlists() }
             data = { ...data, top_tracks: await this.get_top_tracks() }
             data = { ...data, top_artists: await this.get_top_artists() }
             data = { ...data, followings: await this.get_following_artists() }
-
             return data
-
-
         }
 
         // get user information
@@ -33,7 +32,7 @@ module.exports = {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` + Token.access_token
+                    'Authorization': `Bearer ` + this.token
                 })
             })
 
@@ -51,7 +50,7 @@ module.exports = {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` + Token.access_token,
+                    'Authorization': `Bearer ` + this.token,
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 })
@@ -71,7 +70,7 @@ module.exports = {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` + Token.access_token,
+                    'Authorization': `Bearer ` + this.token,
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 })
@@ -89,7 +88,7 @@ module.exports = {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` + Token.access_token,
+                    'Authorization': `Bearer ` +this.token,
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 })
@@ -108,7 +107,7 @@ module.exports = {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` + Token.access_token,
+                    'Authorization': `Bearer ` + this.token,
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 })

@@ -1,17 +1,32 @@
 require('dotenv').config()
-const { generate_access_token, Token } = require('./token/tokens')
+const cookieParser = require('cookie-parser')
+const { generate_access_token, Token } = require('./spotify/tokens')
 const express = require('express');
-const { get_user, User } = require('./spotify/user');
+const { User } = require('./spotify/user');
+const { create_db_connection } = require('./db/connection');
+const Session = require('./models/session_model');
+const Spotify = require('./spotify/tokens');
+
+
+// app and middlware
 const app = express()
 app.use(express.static(__dirname + '/public'))
+app.use(cookieParser(process.env.cookie_secret))
 app.set('view engine', 'ejs');
 
-console.log(process.env.spotify_auth_base)
-app.get("/", async (req, res) => {
+// connect the db
+create_db_connection()
 
-    if (Token.access_token) {
-        const user = new User()
-        const user_data = await user.crete_views_data()
+// routes
+app.get("/", async (req, res) => {
+    
+
+    if (req.signedCookies.tid) {
+        
+        const token = await Session.findById(req.signedCookies.tid)
+        console.log("TOKEN", token)
+        const user = new User(token.access_token)
+        const user_data = await user.crete_views_data()        
 
         res.render("home", { user: user_data })
 
@@ -43,24 +58,37 @@ app.get('/authorize', (req, res) => {
 // the redirect uri, spotify will respond here with data
 app.get('/authcallback', async (req, res) => {
 
+    
+
     const { error, state, code } = req.query
     if (error) {
-        return res.send("Access denied:", error)
+        return res.redirect("/")
     }
 
     if (state !== process.env.state) {
-        return res.send("Access denied.")
+        return res.redirect("/")
     }
 
-    const { access_token, refresh_token } = await generate_access_token(code)
-    Token.access_token = access_token
-    Token.refresh_token = refresh_token
+    const spotify= await Spotify.initialize(code)
+    
+    if (!spotify.access_token || !spotify.refresh_token){
+        console.log();
+        res.redirect("/")
+    }
+    const session = await Session.create({
+        access_token:spotify.access_token,
+        refresh_token:spotify.refresh_token
+    })
+    
+    res.cookie("tid", session._id, { maxAge: 600000,httpOnly:true,signed:true})
     res.redirect("/")
 })
 
-app.get('/logout', (req,res)=>{
-    Token.access_token = null
-    Token.refresh_token = null
+app.get('/logout', async(req,res)=>{
+    const tid = req.signedCookies.tid
+    const session = await Session.findByIdAndDelete(tid)
+    console.log("DELETED", session)
+    res.clearCookie("tid")
     res.redirect("/")
 })
 
