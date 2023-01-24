@@ -34,7 +34,11 @@ app.get("/", async (req, res) => {
         return res.redirect("/")
     }
     const user = new User(token.access_token)
+    if (!user) {
+        return res.redirect("/")
+    }
     const user_data = await user.crete_views_data()
+
 
     res.render("home", { user: user_data })
 

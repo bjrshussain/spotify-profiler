@@ -7,17 +7,17 @@ module.exports = {
 
     User: class User {
 
-         constructor (tkn) {
+        constructor(tkn) {
             this.url = `${process.env.spotify_api_base}`
             this.token = tkn
-                 
+
         }
 
         // crete users data to pass into views
-         async crete_views_data(){
-        
-           var data= new Object()
-            data = { ...data, user: await this.get_user()  }
+        async crete_views_data() {
+
+            var data = new Object()
+            data = { ...data, user: await this.get_user() }
             data = { ...data, playlists: await this.get_user_playlists() }
             data = { ...data, top_tracks: await this.get_top_tracks() }
             data = { ...data, top_artists: await this.get_top_artists() }
@@ -35,9 +35,12 @@ module.exports = {
                     'Authorization': `Bearer ` + this.token
                 })
             })
+            if (!response.status == 200) {
+                return null
+            }
 
             return await response.json()
-            
+
         }
 
         // gets to 20 artists for user
@@ -83,12 +86,12 @@ module.exports = {
         // gets 20 artist that user follows
         async get_following_artists() {
 
-        
+
             const response = await fetch(`${this.url}/v1/me/following?type=artist&limit=50`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: new Headers({
-                    'Authorization': `Bearer ` +this.token,
+                    'Authorization': `Bearer ` + this.token,
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 })

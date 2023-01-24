@@ -15,12 +15,15 @@
   <div class="container">
     <% if (user) {%>
       <section class="profile-section">
-          <div class="img_wrapper">
-            <img class="image img-thumbnail rounded-circle" src=<%=user?.user.images[0].url %> alt="user">
-          </div>
-          <div class="name">
-            <%= user?user.user.display_name:"" %>
-          </div>
+        <div class="img_wrapper">
+          <img class="image"
+              src=<%=user.user.images.length?user.user.images[0].url:"https://cdn-icons-png.flaticon.com/512/456/456212.png"
+              %>
+          alt="user">
+        </div>
+        <div class="name">
+          <%= user?user.user.display_name:"" %>
+        </div>
       </section>
       <section class="stats-section">
         <div class="user-stats">
@@ -42,33 +45,33 @@
           <div>
             <p class="headers">Playlists</p>
             <% user.playlists.items.forEach((playlist, i)=>{%>
-            <div  class="names">
-              <%= i+1 %>. <%= playlist.name %>
-            </div>
-            <%})%>
+              <div class="names">
+                <%= i+1 %>. <%= playlist.name %>
+              </div>
+              <%})%>
           </div>
         </section>
-        
-        
+
+
         <section class="user-songs">
           <div>
-              <p class="headers">Top Songs</p>
-         
+            <p class="headers">Top Songs</p>
+
             <% user.top_tracks.items.forEach((track, i)=>{%>
-            <div class="names">
-              <%= i+1 %>. <%= track.name %>
-            </div>
-            <%})%>
+              <div class="names">
+                <%= i+1 %>. <%= track.name %>
+              </div>
+              <%})%>
           </div>
         </section>
         <section class="user-artists">
           <div>
-              <p class="headers">Top Artists</p>
+            <p class="headers">Top Artists</p>
             <% user.top_artists.items.forEach((artist, i)=>{%>
               <div class="names">
                 <%= i+1 %>. <%= artist.name %>
               </div>
-            <%})%>
+              <%})%>
           </div>
         </section>
       </div>
@@ -90,9 +93,9 @@
         </div>
         <% } %>
 
-        <section class="github">
-        follow my github @<a href="https://github.com/bjrshussain" target="_blank">bjrshussain</a>
-        </section>
+          <section class="github">
+            follow my github @<a href="https://github.com/bjrshussain" target="_blank">bjrshussain</a>
+          </section>
   </div>
 </body>
 

@@ -51,9 +51,14 @@
 .img_wrapper{
     width: 150px;
     margin: auto;
+    max-width: 100px;
+    object-fit: contain;
+    border-radius: 50%;
 }
 .image{
     width: 100%;
+    max-width: 150px;
+    object-fit: cover;
 }
 .name{
     margin-top: 1rem;
