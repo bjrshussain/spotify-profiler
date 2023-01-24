@@ -16,25 +16,28 @@ app.set('view engine', 'ejs');
 
 // connect the db
 create_db_connection()
+console.log("TIME", new Date())
 
 // routes
 app.get("/", async (req, res) => {
-    
 
-    if (req.signedCookies.tid) {
-        
-        const token = await Session.findById(req.signedCookies.tid)
-        console.log("TOKEN", token)
-        const user = new User(token.access_token)
-        const user_data = await user.crete_views_data()        
 
-        res.render("home", { user: user_data })
+    if (!req.signedCookies.tid) {
 
+        return res.render("home", { user: null })
     }
-    else {
-        res.render("home", { user: null })
 
+    const token = await Session.findById(req.signedCookies.tid)
+
+    if (!token) {
+        res.clearCookie("tid")
+        return res.redirect("/")
     }
+    const user = new User(token.access_token)
+    const user_data = await user.crete_views_data()
+
+    res.render("home", { user: user_data })
+
 
 })
 
@@ -58,7 +61,7 @@ app.get('/authorize', (req, res) => {
 // the redirect uri, spotify will respond here with data
 app.get('/authcallback', async (req, res) => {
 
-    
+
 
     const { error, state, code } = req.query
     if (error) {
@@ -69,25 +72,23 @@ app.get('/authcallback', async (req, res) => {
         return res.redirect("/")
     }
 
-    const spotify= await Spotify.initialize(code)
-    
-    if (!spotify.access_token || !spotify.refresh_token){
-        console.log();
+    const spotify = await Spotify.initialize(code)
+
+    if (!spotify.access_token || !spotify.refresh_token) {
         res.redirect("/")
     }
     const session = await Session.create({
-        access_token:spotify.access_token,
-        refresh_token:spotify.refresh_token
+        access_token: spotify.access_token,
+        refresh_token: spotify.refresh_token
     })
-    
-    res.cookie("tid", session._id, { maxAge: 600000,httpOnly:true,signed:true})
+
+    res.cookie("tid", session._id, { maxAge: 600000, httpOnly: true, signed: true })
     res.redirect("/")
 })
 
-app.get('/logout', async(req,res)=>{
+app.get('/logout', async (req, res) => {
     const tid = req.signedCookies.tid
     const session = await Session.findByIdAndDelete(tid)
-    console.log("DELETED", session)
     res.clearCookie("tid")
     res.redirect("/")
 })
